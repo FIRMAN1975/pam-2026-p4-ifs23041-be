@@ -1,0 +1,157 @@
+## Global Variabel
+# @BaseUrl = https://pam-2026-p4-ifs18005-be.delcom.org:8080
+@BaseUrl = http://127.0.0.1:8000
+
+
+## Profile
+## ===========================================
+
+### Mengambil profile
+# @name GetProfile
+GET {{BaseUrl}}/profile
+Content-Type: application/json
+
+
+### Mengambil photo profil
+# @name GetProfilePhoto
+GET {{BaseUrl}}/profile/photo
+Content-Type: application/json
+
+
+
+## Fruits
+## ===========================================
+
+### Mengambil semua data buah
+# @name GetAllFruits
+GET {{BaseUrl}}/fruits?search=
+Content-Type: application/json
+
+
+
+#> {%
+#    client.global.set("fruitId", response.body.data.fruits[0].id);
+#    console.log(client.global.get("fruitId"))
+#%}
+
+
+### Menambahkan data buah baru
+# @name PostFruits
+POST {{BaseUrl}}/fruits
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="nama"
+
+Apel
+--WebAppBoundary
+Content-Disposition: form-data; name="nama_latin"
+
+Malus domestica
+--WebAppBoundary
+Content-Disposition: form-data; name="deskripsi"
+
+Buah apel kaya serat dan vitamin C
+--WebAppBoundary
+Content-Disposition: form-data; name="warna"
+
+Merah
+--WebAppBoundary
+Content-Disposition: form-data; name="musim_panen"
+
+September - November
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="example.png"
+Content-Type: image/png
+
+< ./example.png
+--WebAppBoundary--
+
+> {%
+    client.global.set("fruitId", response.body.data.fruitId);
+    console.log(client.global.get("fruitId"))
+%}
+
+
+
+### Mengambil data buah berdasarkan id
+# @name GetFruitById
+GET {{BaseUrl}}/fruits/{{fruitId}}
+Content-Type: application/json
+
+
+
+### Melihat gambar buah
+# @name GetFruitImageById
+GET {{BaseUrl}}/fruits/{{fruitId}}/image
+Content-Type: application/json
+
+
+
+### Update data buah saja
+# @name PutFruitOnlyData
+PUT {{BaseUrl}}/fruits/{{fruitId}}
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="nama"
+
+Apel Fuji
+--WebAppBoundary
+Content-Disposition: form-data; name="nama_latin"
+
+Malus domestica
+--WebAppBoundary
+Content-Disposition: form-data; name="deskripsi"
+
+Apel dengan rasa manis dan tekstur renyah
+--WebAppBoundary
+Content-Disposition: form-data; name="warna"
+
+Merah
+--WebAppBoundary
+Content-Disposition: form-data; name="musim_panen"
+
+Oktober
+--WebAppBoundary--
+
+
+
+### Update data + gambar buah
+# @name PutFruit
+PUT {{BaseUrl}}/fruits/{{fruitId}}
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="nama"
+
+Apel
+--WebAppBoundary
+Content-Disposition: form-data; name="nama_latin"
+
+Malus domestica
+--WebAppBoundary
+Content-Disposition: form-data; name="deskripsi"
+
+Buah apel kaya serat dan vitamin
+--WebAppBoundary
+Content-Disposition: form-data; name="warna"
+
+Hijau
+--WebAppBoundary
+Content-Disposition: form-data; name="musim_panen"
+
+September
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="example.png"
+Content-Type: image/png
+
+< ./example.png
+--WebAppBoundary--
+
+
+
+### Menghapus data buah
+# @name DeleteFruit
+DELETE {{BaseUrl}}/fruits/{{fruitId}}
+Content-Type: application/json

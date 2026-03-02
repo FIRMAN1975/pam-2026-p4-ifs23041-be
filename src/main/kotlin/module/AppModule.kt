@@ -1,21 +1,21 @@
 package org.delcom.module
 
-import org.delcom.repositories.IPlantRepository
-import org.delcom.repositories.PlantRepository
-import org.delcom.services.PlantService
+import org.delcom.repositories.FruitRepository
+import org.delcom.repositories.IFruitRepository
+import org.delcom.services.FruitService
 import org.delcom.services.ProfileService
 import org.koin.dsl.module
 
 
 val appModule = module {
-    // Plant Repository
-    single<IPlantRepository> {
-        PlantRepository()
+    // Fruit Repository
+    single<IFruitRepository> {
+        FruitRepository()
     }
 
-    // Plant Service
+    // Fruit Service
     single {
-        PlantService(get())
+        FruitService(get())
     }
 
     // Profile Service
